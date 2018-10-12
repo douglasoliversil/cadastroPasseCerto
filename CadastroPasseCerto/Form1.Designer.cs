@@ -147,16 +147,18 @@
             this.rgAluno.Name = "rgAluno";
             this.rgAluno.Size = new System.Drawing.Size(261, 20);
             this.rgAluno.TabIndex = 15;
+            this.rgAluno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rgAluno_KeyPress);
             // 
             // cpfAluno
             // 
             this.cpfAluno.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cpfAluno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpfAluno.Location = new System.Drawing.Point(158, 122);
-            this.cpfAluno.MaxLength = 20;
+            this.cpfAluno.MaxLength = 14;
             this.cpfAluno.Name = "cpfAluno";
             this.cpfAluno.Size = new System.Drawing.Size(261, 20);
             this.cpfAluno.TabIndex = 14;
+            this.cpfAluno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cpfAluno_KeyPress);
             // 
             // cepAluno
             // 
@@ -168,16 +170,18 @@
             this.cepAluno.Size = new System.Drawing.Size(261, 20);
             this.cepAluno.TabIndex = 13;
             this.cepAluno.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.cepAluno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cepAluno_KeyPress);
             // 
             // nascimentoAluno
             // 
             this.nascimentoAluno.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nascimentoAluno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nascimentoAluno.Location = new System.Drawing.Point(158, 97);
-            this.nascimentoAluno.MaxLength = 20;
+            this.nascimentoAluno.MaxLength = 10;
             this.nascimentoAluno.Name = "nascimentoAluno";
             this.nascimentoAluno.Size = new System.Drawing.Size(261, 20);
             this.nascimentoAluno.TabIndex = 12;
+            this.nascimentoAluno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nascimentoAluno_KeyPress);
             // 
             // bairroAluno
             // 
@@ -214,10 +218,11 @@
             this.nomeAluno.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeAluno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nomeAluno.Location = new System.Drawing.Point(158, 24);
-            this.nomeAluno.MaxLength = 200;
+            this.nomeAluno.MaxLength = 150;
             this.nomeAluno.Name = "nomeAluno";
             this.nomeAluno.Size = new System.Drawing.Size(745, 20);
             this.nomeAluno.TabIndex = 8;
+            this.nomeAluno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nomeAluno_KeyPress);
             // 
             // label9
             // 
@@ -320,6 +325,7 @@
             this.telefone2.Name = "telefone2";
             this.telefone2.Size = new System.Drawing.Size(261, 20);
             this.telefone2.TabIndex = 19;
+            this.telefone2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefone2_KeyPress);
             // 
             // label12
             // 
@@ -339,6 +345,7 @@
             this.telefone1.Name = "telefone1";
             this.telefone1.Size = new System.Drawing.Size(261, 20);
             this.telefone1.TabIndex = 17;
+            this.telefone1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefone1_KeyPress);
             // 
             // label11
             // 
@@ -358,26 +365,29 @@
             this.rgResponsavel.Name = "rgResponsavel";
             this.rgResponsavel.Size = new System.Drawing.Size(261, 20);
             this.rgResponsavel.TabIndex = 15;
+            this.rgResponsavel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rgResponsavel_KeyPress);
             // 
             // cpfResponsavel
             // 
             this.cpfResponsavel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.cpfResponsavel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpfResponsavel.Location = new System.Drawing.Point(158, 50);
-            this.cpfResponsavel.MaxLength = 20;
+            this.cpfResponsavel.MaxLength = 14;
             this.cpfResponsavel.Name = "cpfResponsavel";
             this.cpfResponsavel.Size = new System.Drawing.Size(261, 20);
             this.cpfResponsavel.TabIndex = 14;
+            this.cpfResponsavel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cpfResponsavel_KeyPress);
             // 
             // nomeResponsavel
             // 
             this.nomeResponsavel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.nomeResponsavel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nomeResponsavel.Location = new System.Drawing.Point(158, 24);
-            this.nomeResponsavel.MaxLength = 200;
+            this.nomeResponsavel.MaxLength = 150;
             this.nomeResponsavel.Name = "nomeResponsavel";
             this.nomeResponsavel.Size = new System.Drawing.Size(745, 20);
             this.nomeResponsavel.TabIndex = 8;
+            this.nomeResponsavel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nomeResponsavel_KeyPress);
             // 
             // label10
             // 

@@ -29,8 +29,8 @@ namespace CadastroPasseCerto
                 {
                     comboBox1.Items.Add(videoSources[i].Name);
                 }
-                //videoSource = new VideoCaptureDevice(videoSources[0].MonikerString);
-                //videoSource.NewFrame += VideoSource_NewFrame;
+                videoSource = new VideoCaptureDevice(videoSources[0].MonikerString);
+                videoSource.NewFrame += VideoSource_NewFrame;
             }
 
         }
@@ -51,7 +51,14 @@ namespace CadastroPasseCerto
                 try
                 {
                     videoSource.NewFrame -= VideoSource_NewFrame;
-                    pictureBox1.Image.Save("teste", System.Drawing.Imaging.ImageFormat.Png);
+                    using(var ms = new System.IO.MemoryStream())
+                    {
+                        pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                        Form1.fotoAluno = ms.ToArray();
+                    }
+                    
+                    /*pictureBox1.Image.Save(Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                + "\\teste.png", System.Drawing.Imaging.ImageFormat.Png);*/
                 }
                 finally
                 {
