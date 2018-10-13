@@ -33,14 +33,6 @@ namespace CadastroPasseCerto
                 }
                 videoSource = new VideoCaptureDevice(videoSources[0].MonikerString);
                 videoSource.NewFrame += VideoSource_NewFrame;
-                if (videoSource.IsRunning)
-                {
-                    videoSource.Stop();
-                }
-                else
-                {
-                    videoSource.Start();
-                }
             }
 
         }
