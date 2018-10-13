@@ -72,6 +72,14 @@ namespace CadastroPasseCerto
         {
             videoSource = new VideoCaptureDevice(videoSources[comboBox1.SelectedIndex].MonikerString);
             videoSource.NewFrame += VideoSource_NewFrame;
+            if (videoSource.IsRunning)
+            {
+                videoSource.Stop();
+            }
+            else
+            {
+                videoSource.Start();
+            }
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
