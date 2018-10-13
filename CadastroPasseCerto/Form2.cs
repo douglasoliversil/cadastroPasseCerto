@@ -23,6 +23,8 @@ namespace CadastroPasseCerto
 
             InitializeComponent();
 
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
             if(videoSources != null && videoSources.Count > 0)
             {
                 for(int i =0; i < videoSources.Count; i++)
