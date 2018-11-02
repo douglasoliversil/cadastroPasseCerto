@@ -11,6 +11,7 @@ using iTextSharp;
 using iTextSharp.text;//ESTENSAO 1 (TEXT)
 using iTextSharp.text.pdf;//ESTENSAO 2 (PDF)
 using AForge.Video.DirectShow;
+using iTextSharp.text.pdf.parser;
 
 namespace CadastroPasseCerto
 {
@@ -23,6 +24,10 @@ namespace CadastroPasseCerto
         const String BAR = "/";
         const String YES = "Sim";
         const String NO = "Não";
+        const String ESPACE = " ";
+        private String txtCaminoNomePDF = "";
+        private StringBuilder txtPDF = new StringBuilder();
+        private Boolean isEdit = false;
 
         public static byte[] fotoAluno { get; internal set; }
 
@@ -239,9 +244,9 @@ namespace CadastroPasseCerto
 
             string caminho = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                 + "\\"
-                + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "_").Replace(":", ".")
-                + "_"
                 + nomeAluno.Text.Replace(" ", "_")
+                + "_"
+                + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "_").Replace(":", ".")
                 + ".pdf";
 
             PdfWriter writer = PdfWriter.GetInstance(document, new System.IO.FileStream(caminho, System.IO.FileMode.Create));
@@ -347,6 +352,8 @@ namespace CadastroPasseCerto
             cepAluno.Text = EMPTY;
             cpfAluno.Text = EMPTY;
             rgAluno.Text = EMPTY;
+            raAluno.Text = EMPTY;
+            obsAluno.Text = EMPTY;
             nomeResponsavel.Text = EMPTY;
             cpfResponsavel.Text = EMPTY;
             rgResponsavel.Text = EMPTY;
@@ -384,6 +391,12 @@ namespace CadastroPasseCerto
             dadosAluno.Append("RG: "); 
             dadosAluno.Append(rgAluno.Text);
             dadosAluno.Append(NEW_LINE);
+            dadosAluno.Append("RA Escolar:");
+            dadosAluno.Append(raAluno.Text);
+            dadosAluno.Append(NEW_LINE);
+            dadosAluno.Append("Observação:");
+            dadosAluno.Append(obsAluno.Text);
+            dadosAluno.Append(NEW_LINE);
             dadosAluno.Append(NEW_LINE);
 
             return dadosAluno.ToString();
@@ -411,37 +424,37 @@ namespace CadastroPasseCerto
 
             informacoesComplementares.Append("1 - TEVE ALGUMA DOENÇA NA INFÂNCIA? ");
             informacoesComplementares.Append(sim1.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim1.Checked ? qual1.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("2 - TEM ALGUM PROBLEMA DE SAÚDE? ");
             informacoesComplementares.Append(sim2.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim2.Checked ? qual2.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("3 - TOMA ALGUM TIPO DE MEDICAMENTO? ");
             informacoesComplementares.Append(sim3.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim3.Checked ? qual3.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("4 - É ALÉRGICO A ALGUM MEDICAMENTO? ");
             informacoesComplementares.Append(sim4.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim4.Checked ? qual4.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("5 - ESTÁ EM TRATAMENTO MÉDICO? ");
             informacoesComplementares.Append(sim5.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim5.Checked ? qual5.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("6 - SOFRE EPILEPSIA? ");
             informacoesComplementares.Append(sim6.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim6.Checked ? qual6.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append("7 - JÁ FRATUROU ALGUMA PARTE DO CORPO? ");
             informacoesComplementares.Append(sim7.Checked ? YES : NO);
-            informacoesComplementares.Append(TAB);
+            informacoesComplementares.Append(ESPACE);
             informacoesComplementares.Append(sim7.Checked ? qual7.Text : EMPTY);
             informacoesComplementares.Append(NEW_LINE);
             informacoesComplementares.Append(NEW_LINE);
@@ -568,6 +581,162 @@ namespace CadastroPasseCerto
             clearForm();
         }
 
+        private void label29_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            isEdit = true;
+            OpenFileDialog ofd1 = new OpenFileDialog();
+            ofd1.Multiselect = false;
+            ofd1.Title = "Selecionar PDF";
+            ofd1.InitialDirectory = @Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //filtra para exibir somente arquivos de imagens
+            ofd1.Filter = "Files (*.PDF)|*.PDF|" + "All files (*.*)|*.*";
+            ofd1.CheckFileExists = true;
+            ofd1.CheckPathExists = true;
+            ofd1.FilterIndex = 2;
+            ofd1.RestoreDirectory = true;
+            ofd1.ReadOnlyChecked = true;
+            ofd1.ShowReadOnly = false;
+
+            DialogResult dr = ofd1.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                txtCaminoNomePDF = ofd1.FileName;
+            }
+
+            PdfReader pdfReader = new PdfReader(txtCaminoNomePDF);
+            for (int i= 1; i < pdfReader.NumberOfPages; i++)
+            {
+                txtPDF.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i));
+            }
+            String[] arrayFirst = txtPDF.ToString().Split(':');
+            nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
+            enderecoAluno.Text = arrayFirst[2].Substring(0, arrayFirst[2].IndexOf("\n")).Trim();
+            bairroAluno.Text = arrayFirst[3].Substring(0, arrayFirst[3].IndexOf("\n")).Trim();
+            cidadeAluno.Text = arrayFirst[4].Substring(0, arrayFirst[4].IndexOf("\n")).Trim();
+            cepAluno.Text = arrayFirst[5].Substring(0, arrayFirst[5].IndexOf("\n")).Trim();
+            nascimentoAluno.Text = arrayFirst[6].Substring(0, arrayFirst[6].IndexOf("\n")).Trim();
+            cpfAluno.Text = arrayFirst[7].Substring(0, arrayFirst[7].IndexOf("\n")).Trim();
+            rgAluno.Text = arrayFirst[8].Substring(0, arrayFirst[8].IndexOf("\n")).Trim();
+            raAluno.Text = arrayFirst[9].Substring(0, arrayFirst[9].IndexOf("\n")).Trim();
+            obsAluno.Text = arrayFirst[10].Substring(0, arrayFirst[10].IndexOf("\n")).Trim();
+            nomeResponsavel.Text = arrayFirst[11].Substring(0, arrayFirst[11].IndexOf("\n")).Trim();
+            cpfResponsavel.Text = arrayFirst[12].Substring(0, arrayFirst[12].IndexOf(" ")).Trim();
+            rgResponsavel.Text = arrayFirst[13].Substring(0, arrayFirst[13].IndexOf("\n")).Trim();
+            telefone1.Text = arrayFirst[14].Substring(0, arrayFirst[14].IndexOf(" ")).Trim();
+            telefone2.Text = arrayFirst[15].Substring(0, arrayFirst[15].IndexOf("\n")).Trim();
+
+            String[] infoAdicionais = arrayFirst[15].Split('\n');
+            
+            for(int i = 3; i <= 9; i++)
+            {
+                int indexToCut = infoAdicionais[i].IndexOf('?');
+                int endOfCut = indexToCut + 3;
+                if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1).Trim() == NO)
+                {
+                    setNoByIndex(i);
+                }
+                if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1).Trim() == YES)
+                {
+                    setYesByIndex(i);
+                    setReasonByIndex(i,infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4));
+                }
+            }
+
+        }
+
+        private void setNoByIndex(int index)
+        {
+            switch (index)
+            {
+                case 3:
+                    nao1.Checked = true;
+                    break;
+                case 4:
+                    nao2.Checked = true;
+                    break;
+                case 5:
+                    nao3.Checked = true;
+                    break;
+                case 6:
+                    nao4.Checked = true;
+                    break;
+                case 7:
+                    nao5.Checked = true;
+                    break;
+                case 8:
+                    nao6.Checked = true;
+                    break;
+                default:
+                    nao7.Checked = true;
+                    break;
+            }
+        }
+
+        private void setYesByIndex(int index)
+        {
+            switch (index)
+            {
+                case 3:
+                    sim1.Checked = true;
+                    break;
+                case 4:
+                    sim2.Checked = true;
+                    break;
+                case 5:
+                    sim3.Checked = true;
+                    break;
+                case 6:
+                    sim4.Checked = true;
+                    break;
+                case 7:
+                    sim5.Checked = true;
+                    break;
+                case 8:
+                    sim6.Checked = true;
+                    break;
+                default:
+                    sim7.Checked = true;
+                    break;
+            }
+        }
+
+        private void setReasonByIndex(int index, string reason)
+        {
+            switch (index)
+            {
+                case 3:
+                    qual1.Text = reason;
+                    break;
+                case 4:
+                    qual2.Text = reason;
+                    break;
+                case 5:
+                    qual3.Text = reason;
+                    break;
+                case 6:
+                    qual4.Text = reason;
+                    break;
+                case 7:
+                    qual5.Text = reason;
+                    break;
+                case 8:
+                    qual6.Text = reason;
+                    break;
+                default:
+                    qual7.Text = reason;
+                    break;
+            }
+        }
     } 
     }
 
