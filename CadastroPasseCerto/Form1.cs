@@ -614,9 +614,9 @@ namespace CadastroPasseCerto
 
             PdfReader pdfReader = new PdfReader(txtCaminoNomePDF);
             txtCaminoNomePDF = EMPTY;
-            for (int i= 1; i < pdfReader.NumberOfPages; i++)
+            for (int i= 0; i < pdfReader.NumberOfPages; i++)
             {
-                txtPDF.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i));
+                txtPDF.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i + 1));
             }
             String[] arrayFirst = txtPDF.ToString().Split(':');
 
@@ -676,6 +676,7 @@ namespace CadastroPasseCerto
             }
             else
             {
+                txtPDF = new StringBuilder();
                 if (arrayFirst[1] != null)
                     nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
                 if (arrayFirst[2] != null)
@@ -718,7 +719,7 @@ namespace CadastroPasseCerto
                         setYesByIndex(i);
                         if (!infoAdicionais[i].EndsWith(YES))
                         {
-                            setReasonByIndex(i, infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4));
+                            setReasonByIndex(i, infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4).Trim());
                         }
                     }
                 }
