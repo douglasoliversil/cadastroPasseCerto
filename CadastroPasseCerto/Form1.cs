@@ -266,7 +266,7 @@ namespace CadastroPasseCerto
             Paragraph informacoesComplementares = new Paragraph(getInformacoesComplementares(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12));
             Paragraph informacoesComplementaresTitulo = new Paragraph("Informações Complementares", new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14));
             Paragraph autorizacaoTitulo = new Paragraph("Autorização" + NEW_LINE + NEW_LINE, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14));
-            Paragraph autorizacao = new Paragraph(getAutorizacao(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12));
+            Paragraph autorizacao = new Paragraph(getAutorizacao(), new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10));
             Paragraph foto = new Paragraph(EMPTY);
             PdfPTable table = new PdfPTable(2);
             PdfPCell cellAluno = new PdfPCell();
