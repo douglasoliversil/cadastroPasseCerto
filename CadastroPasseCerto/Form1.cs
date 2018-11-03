@@ -612,117 +612,125 @@ namespace CadastroPasseCerto
                 txtCaminoNomePDF = ofd1.FileName;
             }
 
-            PdfReader pdfReader = new PdfReader(txtCaminoNomePDF);
-            txtCaminoNomePDF = EMPTY;
-            for (int i= 0; i < pdfReader.NumberOfPages; i++)
+            if(txtCaminoNomePDF != null && txtCaminoNomePDF != "")
             {
-                txtPDF.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i + 1));
-            }
-            String[] arrayFirst = txtPDF.ToString().Split(':');
-
-            if(txtPDF.ToString().Contains("RA Escolar"))
-            {
-                txtPDF = new StringBuilder();
-                if (arrayFirst[1] != null)
-                    nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
-                if (arrayFirst[2] != null)
-                    enderecoAluno.Text = arrayFirst[2].Substring(0, arrayFirst[2].IndexOf("\n")).Trim();
-                if (arrayFirst[3] != null)
-                    bairroAluno.Text = arrayFirst[3].Substring(0, arrayFirst[3].IndexOf("\n")).Trim();
-                if (arrayFirst[4] != null)
-                    cidadeAluno.Text = arrayFirst[4].Substring(0, arrayFirst[4].IndexOf("\n")).Trim();
-                if (arrayFirst[5] != null)
-                    cepAluno.Text = arrayFirst[5].Substring(0, arrayFirst[5].IndexOf("\n")).Trim();
-                if (arrayFirst[6] != null)
-                    nascimentoAluno.Text = arrayFirst[6].Substring(0, arrayFirst[6].IndexOf("\n")).Trim();
-                if (arrayFirst[7] != null)
-                    cpfAluno.Text = arrayFirst[7].Substring(0, arrayFirst[7].IndexOf("\n")).Trim();
-                if (arrayFirst[8] != null)
-                    rgAluno.Text = arrayFirst[8].Substring(0, arrayFirst[8].IndexOf("\n")).Trim();
-                if (arrayFirst[9] != null)
-                    raAluno.Text = arrayFirst[9].Substring(0, arrayFirst[9].IndexOf("\n")).Trim();
-                if (arrayFirst[10] != null)
-                    obsAluno.Text = arrayFirst[10].Substring(0, arrayFirst[10].IndexOf("\n")).Trim();
-                if (arrayFirst[11] != null)
-                    nomeResponsavel.Text = arrayFirst[11].Substring(0, arrayFirst[11].IndexOf("\n")).Trim();
-                if (arrayFirst[12] != null)
-                    cpfResponsavel.Text = arrayFirst[12].Substring(0, arrayFirst[12].IndexOf("  ")).Trim();
-                if (arrayFirst[13] != null)
-                    rgResponsavel.Text = arrayFirst[13].Substring(0, arrayFirst[13].IndexOf("\n")).Trim();
-                if (arrayFirst[14] != null)
-                    telefone1.Text = arrayFirst[14].Substring(0, arrayFirst[14].IndexOf("  ")).Trim();
-                if (arrayFirst[15] != null)
-                    telefone2.Text = arrayFirst[15].Substring(0, arrayFirst[15].IndexOf("\n")).Trim();
-
-                String[] infoAdicionais = arrayFirst[15].Split('\n');
+                PdfReader pdfReader = new PdfReader(txtCaminoNomePDF);
             
-                for(int i = 3; i <= 9; i++)
+                txtCaminoNomePDF = EMPTY;
+                for (int i= 0; i < pdfReader.NumberOfPages; i++)
                 {
-                    int indexToCut = infoAdicionais[i].IndexOf('?');
-                    int endOfCut = indexToCut + 3;
-                    if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1,4).Trim() == NO)
+                    txtPDF.Append(PdfTextExtractor.GetTextFromPage(pdfReader, i + 1));
+                }
+                String[] arrayFirst = txtPDF.ToString().Split(':');
+
+                if(txtPDF.ToString().Contains("RA Escolar"))
+                {
+                    txtPDF = new StringBuilder();
+                    if (arrayFirst[1] != null)
+                        nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
+                    if (arrayFirst[2] != null)
+                        enderecoAluno.Text = arrayFirst[2].Substring(0, arrayFirst[2].IndexOf("\n")).Trim();
+                    if (arrayFirst[3] != null)
+                        bairroAluno.Text = arrayFirst[3].Substring(0, arrayFirst[3].IndexOf("\n")).Trim();
+                    if (arrayFirst[4] != null)
+                        cidadeAluno.Text = arrayFirst[4].Substring(0, arrayFirst[4].IndexOf("\n")).Trim();
+                    if (arrayFirst[5] != null)
+                        cepAluno.Text = arrayFirst[5].Substring(0, arrayFirst[5].IndexOf("\n")).Trim();
+                    if (arrayFirst[6] != null)
+                        nascimentoAluno.Text = arrayFirst[6].Substring(0, arrayFirst[6].IndexOf("\n")).Trim();
+                    if (arrayFirst[7] != null)
+                        cpfAluno.Text = arrayFirst[7].Substring(0, arrayFirst[7].IndexOf("\n")).Trim();
+                    if (arrayFirst[8] != null)
+                        rgAluno.Text = arrayFirst[8].Substring(0, arrayFirst[8].IndexOf("\n")).Trim();
+                    if (arrayFirst[9] != null)
+                        raAluno.Text = arrayFirst[9].Substring(0, arrayFirst[9].IndexOf("\n")).Trim();
+                    if (arrayFirst[10] != null)
+                        obsAluno.Text = arrayFirst[10].Substring(0, arrayFirst[10].IndexOf("\n")).Trim();
+                    if (arrayFirst[11] != null)
+                        nomeResponsavel.Text = arrayFirst[11].Substring(0, arrayFirst[11].IndexOf("\n")).Trim();
+                    if (arrayFirst[12] != null)
+                        cpfResponsavel.Text = arrayFirst[12].Substring(0, arrayFirst[12].IndexOf("  ")).Trim();
+                    if (arrayFirst[13] != null)
+                        rgResponsavel.Text = arrayFirst[13].Substring(0, arrayFirst[13].IndexOf("\n")).Trim();
+                    if (arrayFirst[14] != null)
+                        telefone1.Text = arrayFirst[14].Substring(0, arrayFirst[14].IndexOf("  ")).Trim();
+                    if (arrayFirst[15] != null)
+                        telefone2.Text = arrayFirst[15].Substring(0, arrayFirst[15].IndexOf("\n")).Trim();
+
+                    String[] infoAdicionais = arrayFirst[15].Split('\n');
+            
+                    for(int i = 3; i <= 9; i++)
                     {
-                        setNoByIndex(i);
-                    }
-                    if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1,4).Trim() == YES)
-                    {
-                        setYesByIndex(i);
-                        if(!infoAdicionais[i].EndsWith(YES))
+                        int indexToCut = infoAdicionais[i].IndexOf('?');
+                        int endOfCut = indexToCut + 3;
+                        if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1,4).Trim() == NO)
                         {
-                            setReasonByIndex(i,infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4));
+                            setNoByIndex(i);
+                        }
+                        if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1,4).Trim() == YES)
+                        {
+                            setYesByIndex(i);
+                            if(!infoAdicionais[i].EndsWith(YES))
+                            {
+                                setReasonByIndex(i,infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    txtPDF = new StringBuilder();
+                    if (arrayFirst[1] != null)
+                        nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
+                    if (arrayFirst[2] != null)
+                        enderecoAluno.Text = arrayFirst[2].Substring(0, arrayFirst[2].IndexOf("\n")).Trim();
+                    if (arrayFirst[3] != null)
+                        bairroAluno.Text = arrayFirst[3].Substring(0, arrayFirst[3].IndexOf("\n")).Trim();
+                    if (arrayFirst[4] != null)
+                        cidadeAluno.Text = arrayFirst[4].Substring(0, arrayFirst[4].IndexOf("\n")).Trim();
+                    if (arrayFirst[5] != null)
+                        cepAluno.Text = arrayFirst[5].Substring(0, arrayFirst[5].IndexOf("\n")).Trim();
+                    if (arrayFirst[6] != null)
+                        nascimentoAluno.Text = arrayFirst[6].Substring(0, arrayFirst[6].IndexOf("\n")).Trim();
+                    if (arrayFirst[7] != null)
+                        cpfAluno.Text = arrayFirst[7].Substring(0, arrayFirst[7].IndexOf("\n")).Trim();
+                    if (arrayFirst[8] != null)
+                        rgAluno.Text = arrayFirst[8].Substring(0, arrayFirst[8].IndexOf("\n")).Trim();
+                    if (arrayFirst[9] != null)
+                        nomeResponsavel.Text = arrayFirst[9].Substring(0, arrayFirst[9].IndexOf("\n")).Trim();
+                    if (arrayFirst[10] != null)
+                        cpfResponsavel.Text = arrayFirst[10].Substring(0, arrayFirst[10].IndexOf(" ")).Trim();
+                    if (arrayFirst[11] != null)
+                        rgResponsavel.Text = arrayFirst[11].Substring(0, arrayFirst[11].IndexOf("\n")).Trim();
+                    if (arrayFirst[12] != null)
+                        telefone1.Text = arrayFirst[12].Substring(0, arrayFirst[12].IndexOf(" ")).Trim();
+                    if (arrayFirst[13] != null)
+                        telefone2.Text = arrayFirst[13].Substring(0, arrayFirst[13].IndexOf("\n")).Trim();
+
+                    String[] infoAdicionais = arrayFirst[13].Split('\n');
+
+                    for (int i = 3; i <= 9; i++)
+                    {
+                        int indexToCut = infoAdicionais[i].IndexOf('?');
+                        int endOfCut = indexToCut + 3;
+                        if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1, 4).Trim() == NO)
+                        {
+                            setNoByIndex(i);
+                        }
+                        if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1, 4).Trim() == YES)
+                        {
+                            setYesByIndex(i);
+                            if (!infoAdicionais[i].EndsWith(YES))
+                            {
+                                setReasonByIndex(i, infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4).Trim());
+                            }
                         }
                     }
                 }
             }
-            else
+            else 
             {
-                txtPDF = new StringBuilder();
-                if (arrayFirst[1] != null)
-                    nomeAluno.Text = arrayFirst[1].Substring(0, arrayFirst[1].IndexOf("\n")).Trim();
-                if (arrayFirst[2] != null)
-                    enderecoAluno.Text = arrayFirst[2].Substring(0, arrayFirst[2].IndexOf("\n")).Trim();
-                if (arrayFirst[3] != null)
-                    bairroAluno.Text = arrayFirst[3].Substring(0, arrayFirst[3].IndexOf("\n")).Trim();
-                if (arrayFirst[4] != null)
-                    cidadeAluno.Text = arrayFirst[4].Substring(0, arrayFirst[4].IndexOf("\n")).Trim();
-                if (arrayFirst[5] != null)
-                    cepAluno.Text = arrayFirst[5].Substring(0, arrayFirst[5].IndexOf("\n")).Trim();
-                if (arrayFirst[6] != null)
-                    nascimentoAluno.Text = arrayFirst[6].Substring(0, arrayFirst[6].IndexOf("\n")).Trim();
-                if (arrayFirst[7] != null)
-                    cpfAluno.Text = arrayFirst[7].Substring(0, arrayFirst[7].IndexOf("\n")).Trim();
-                if (arrayFirst[8] != null)
-                    rgAluno.Text = arrayFirst[8].Substring(0, arrayFirst[8].IndexOf("\n")).Trim();
-                if (arrayFirst[9] != null)
-                    nomeResponsavel.Text = arrayFirst[9].Substring(0, arrayFirst[9].IndexOf("\n")).Trim();
-                if (arrayFirst[10] != null)
-                    cpfResponsavel.Text = arrayFirst[10].Substring(0, arrayFirst[10].IndexOf(" ")).Trim();
-                if (arrayFirst[11] != null)
-                    rgResponsavel.Text = arrayFirst[11].Substring(0, arrayFirst[11].IndexOf("\n")).Trim();
-                if (arrayFirst[12] != null)
-                    telefone1.Text = arrayFirst[12].Substring(0, arrayFirst[12].IndexOf(" ")).Trim();
-                if (arrayFirst[13] != null)
-                    telefone2.Text = arrayFirst[13].Substring(0, arrayFirst[13].IndexOf("\n")).Trim();
-
-                String[] infoAdicionais = arrayFirst[13].Split('\n');
-
-                for (int i = 3; i <= 9; i++)
-                {
-                    int indexToCut = infoAdicionais[i].IndexOf('?');
-                    int endOfCut = indexToCut + 3;
-                    if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1, 4).Trim() == NO)
-                    {
-                        setNoByIndex(i);
-                    }
-                    if (infoAdicionais[i].Substring(infoAdicionais[i].IndexOf('?') + 1, 4).Trim() == YES)
-                    {
-                        setYesByIndex(i);
-                        if (!infoAdicionais[i].EndsWith(YES))
-                        {
-                            setReasonByIndex(i, infoAdicionais[i].Substring(infoAdicionais[i].IndexOf("Sim") + 4).Trim());
-                        }
-                    }
-                }
+                return;
             }
         }
 
